@@ -1,4 +1,6 @@
-add_executable(DemoApp)
+add_executable(DemoApp
+        Game.cpp
+        Game.h)
 target_compile_features(DemoApp PRIVATE cxx_std_20)
 
 
@@ -22,4 +24,7 @@ target_include_directories(
 target_link_libraries(
         DemoApp PRIVATE
         StrictWarnings
+        SDL3::SDL3
+        imgui
+        SDL3_image::SDL3_image
 )

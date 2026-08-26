@@ -1,4 +1,11 @@
-#include "Utils.h"
+#include "Game.h"
 
-
-int main() { printGreeting("from C++"); }
+int main()
+{
+    tower_defense::Game game{};
+    if (game.initialize())
+    {
+        game.run();
+    }
+    game.shutdown();
+}
