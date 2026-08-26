@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(GenericProject LANGUAGES CXX)
+project(GameCollection LANGUAGES CXX)
 enable_testing()
 
 
@@ -29,7 +29,5 @@ if(IPO_SUPPORTED)
 endif ()
 
 add_subdirectory(src)
-add_subdirectory(tests)
-add_subdirectory(benchmarks)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT TestSuite)
