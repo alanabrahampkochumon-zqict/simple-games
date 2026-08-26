@@ -62,3 +62,4 @@ target_link_libraries(imgui PUBLIC SDL3::SDL3)
 
 set_target_properties(imgui PROPERTIES FOLDER "${VENDORS_DIR}/DearImGui")
 set_target_properties(SDL3-static SDL3_test PROPERTIES FOLDER "${VENDORS_DIR}/SDL3")
+set_target_properties(png_genfiles png-fix-itxt zlib zlibstatic SDL3_image-static png_shared png_static pngfix PROPERTIES FOLDER "${VENDORS_DIR}/SDL3_Image")
