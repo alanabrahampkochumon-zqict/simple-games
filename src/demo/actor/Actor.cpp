@@ -10,7 +10,6 @@
 
 
 #include "Actor.h"
-
 #include "Game.h"
 
 namespace tower_defense::actor
@@ -26,7 +25,7 @@ namespace tower_defense::actor
         updateActor(deltaTime);
     }
 
-    void Actor::updateComponents(float deltaTime) noexcept
+    void Actor::updateComponents(const float deltaTime) const noexcept
     {
         for (const auto& comp : _components)
         {

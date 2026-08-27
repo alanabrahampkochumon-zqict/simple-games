@@ -44,6 +44,7 @@ namespace tower_defense
         return true;
     }
 
+
     void Game::run() noexcept
     {
         while (_isRunning)
@@ -56,6 +57,16 @@ namespace tower_defense
 
     void Game::shutdown() noexcept
     {
+        // Delete the actors
+        for (const auto actor : _pendingActors)
+        {
+            delete actor;
+        }
+        for (const auto actor : _actors)
+        {
+            delete actor;
+        }
+
         SDL_DestroyRenderer(_renderer);
         SDL_DestroyWindow(_window);
     }
@@ -89,7 +100,6 @@ namespace tower_defense
         }
     }
 
-
     void Game::_processInput()
     {
         SDL_Event event;
@@ -104,7 +114,20 @@ namespace tower_defense
                     break;
             }
         }
+
+        const auto kbState = SDL_GetKeyboardState(nullptr);
+
+        // We are setting isUpdating to true to ensure that if any process
+        // creates or destroys actors, then they are added to pending actors
+        // and not the actors to be processed in the current game loop.
+        _isUpdatingActors = true;
+        for (const auto actor : _actors)
+        {
+            actor->processInput(kbState);
+        }
+        _isUpdatingActors = false;
     }
+
 
     void Game::_update()
     {

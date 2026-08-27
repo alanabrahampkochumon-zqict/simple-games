@@ -38,9 +38,9 @@ namespace tower_defense
 
             /// Process the input.
             /// @param keyState The keycode to process. 1-to-1 mapping to SDL3 keycodes.
-            virtual void processInput([[maybe_unused]] const bool* keyState) noexcept {};
+            virtual void processInput([[maybe_unused]] const bool* keyState) noexcept {}
 
-            [[nodiscard]] int getUpdateOrder() { return _updateOrder; }
+            [[nodiscard]] int getUpdateOrder() const { return _updateOrder; }
 
         private:
             [[maybe_unused]] actor::Actor* _owner;

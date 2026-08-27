@@ -31,7 +31,7 @@ namespace tower_defense
         class Actor
         {
         public:
-            Actor(Game* owner) noexcept;
+            explicit Actor(Game* owner) noexcept;
             virtual ~Actor() noexcept;
 
 
@@ -39,7 +39,7 @@ namespace tower_defense
             void update([[maybe_unused]] float deltaTime) noexcept;
 
             /// Update the components of the actor
-            void updateComponents([[maybe_unused]] float deltaTime) noexcept;
+            void updateComponents([[maybe_unused]] float deltaTime) const noexcept;
 
             /// Overrideable method to give additional functionality to inheriting actors.
             virtual void updateActor([[maybe_unused]] const float deltaTime) noexcept {}
@@ -55,7 +55,7 @@ namespace tower_defense
             /// Process the actor input.
             /// Overridable to provide additional functionality to deriving actors.
             /// @param keyState The keycode to process. 1-to-1 mapping to SDL3 keycodes.
-            void processActorInput([[maybe_unused]] const bool* keyState) noexcept {};
+            virtual void processActorInput([[maybe_unused]] const bool* keyState) noexcept {}
 
 
             //+=+=+=+=+=+=+=+=+=

@@ -13,7 +13,6 @@
 
 #include <SDL3/SDL.h>
 #include <array>
-#include <cstdint>
 #include <vector>
 
 namespace tower_defense
@@ -47,7 +46,6 @@ namespace tower_defense
         void _render();
 
 
-    private:
         //+=+=+=+=+=+=+=+=+=+=
         //  MEMBER VARIABLES
         //+=+=+=+=+=+=+=+=+=+=
