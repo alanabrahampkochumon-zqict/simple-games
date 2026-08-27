@@ -8,7 +8,10 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
+
 #include "AIComponent.h"
+
+#include "AIState.h"
 
 #include <SDL3/SDL.h>
 
@@ -18,51 +21,36 @@ namespace tower_defense::comp
 
     void AIComponent::update(const float deltaTime) noexcept
     {
-        switch (_state)
+        if (_currentAIState != nullptr)
         {
-            case PATROL:
-                _updatePatrol(deltaTime);
-                break;
-            case DEATH:
-                _updateDeath(deltaTime);
-                break;
-            case ATTACK:
-                _updateAttack(deltaTime);
-                break;
-            default:
-                SDL_Log("Invalid AI state!");
-                break;
+            _currentAIState->update(deltaTime);
         }
     }
-    void AIComponent::updateState(const AIState state) noexcept
+
+    void AIComponent::changeState(const std::string& stateName) noexcept
     {
-        // TODO: Before transition (Exit function)
-        // call corresponding function
+        // Exit the current state if it exist
+        if (_currentAIState)
+        {
+            _currentAIState->onEnter();
+        }
 
-        _state = state;
-
-        // TODO: After transition (Enter function)
-        // call corresponding function
+        // If the provided state is valid then, call it's enter function
+        if (const auto iterator = _aiStates.find(stateName); iterator != _aiStates.end())
+        {
+            _currentAIState = iterator->second;
+            _currentAIState->onEnter();
+        }
+        else
+        {
+            SDL_Log(
+                "State with name %s not found in the registry.\nTry registering the state first using registerState",
+                stateName.c_str());
+            _currentAIState = nullptr;
+        }
     }
 
 
-    void AIComponent::_updatePatrol(const float deltaTime) noexcept
-    {
-        // TODO: Impl
-        SDL_Log("Updating Patrol %0.03f", deltaTime);
-    }
+    void AIComponent::registerState(AIState* state) noexcept { _aiStates.emplace(state->getName(), state); }
 
-
-    void AIComponent::_updateDeath(const float deltaTime) noexcept
-    {
-        // TODO: Impl
-        SDL_Log("Updating Death %0.03f", deltaTime);
-    }
-
-
-    void AIComponent::_updateAttack(const float deltaTime) noexcept
-    {
-        // TODO: Impl
-        SDL_Log("Updating Attack %0.03f", deltaTime);
-    }
 } // namespace tower_defense::comp

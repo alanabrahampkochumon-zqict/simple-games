@@ -20,6 +20,7 @@ namespace tower_defense::comp
     {
     public:
         explicit AIState(AIComponent* owner) noexcept: _owner{ owner } {}
+        virtual ~AIState() = default;
 
         virtual void update(float deltaTime) noexcept = 0;
 
