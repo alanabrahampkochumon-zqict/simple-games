@@ -1,2 +1,2 @@
-add_subdirectory(demo)
+add_subdirectory(tower_defense)
 add_subdirectory(math)

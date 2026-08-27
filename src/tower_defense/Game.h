@@ -29,7 +29,7 @@ namespace tower_defense
         void run() noexcept;
 
         /// Shutdown and cleanup the application
-        void shutdown() noexcept;
+        void shutdown() const noexcept;
 
         void addActor(actor::Actor* actor) noexcept;
 
@@ -43,7 +43,7 @@ namespace tower_defense
         void _update();
 
         /// Render the current game state
-        void _render();
+        void _render() const;
 
 
         //+=+=+=+=+=+=+=+=+=+=

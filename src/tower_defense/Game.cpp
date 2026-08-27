@@ -55,7 +55,7 @@ namespace tower_defense
         }
     }
 
-    void Game::shutdown() noexcept
+    void Game::shutdown() const noexcept
     {
         // Delete the actors
         for (const auto actor : _pendingActors)
@@ -173,12 +173,12 @@ namespace tower_defense
         }
 
 
-        auto title = std::format("{} ({} FPS)", GAME_NAME, static_cast<int>(1.0f / deltaTime));
+        const auto title = std::format("{} ({} FPS)", GAME_NAME, static_cast<int>(1.0f / deltaTime));
         SDL_SetWindowTitle(_window, title.c_str());
         // SDL_Log("Delta time: %0.03f", deltaTime);
     }
 
-    void Game::_render()
+    void Game::_render() const
     {
         SDL_SetRenderDrawColor(_renderer, CLEAR_COLOR[0], CLEAR_COLOR[1], CLEAR_COLOR[2], CLEAR_COLOR[3]);
         SDL_RenderClear(_renderer);
