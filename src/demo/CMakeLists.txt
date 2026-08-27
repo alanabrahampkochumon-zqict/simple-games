@@ -1,31 +1,21 @@
-add_executable(DemoApp
+add_executable(TowerDefense
         Game.cpp
         Game.h
-        components/Component.h
-        actor/Actor.h
-        actor/Actor.cpp)
-target_compile_features(DemoApp PRIVATE cxx_std_20)
-
-
-target_sources(
-        DemoApp
-        PRIVATE
         Main.cpp
 
-        PRIVATE
-        FILE_SET HEADERS
-        BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}
-        FILES
-        Utils.h
+        components/Component.h
+
+        actor/Actor.h
+        actor/Actor.cpp
 )
+target_compile_features(TowerDefense PRIVATE cxx_std_20)
 
 target_include_directories(
-        DemoApp PRIVATE
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        TowerDefense PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(
-        DemoApp PRIVATE
+        TowerDefense PRIVATE
         StrictWarnings
         SDL3::SDL3
         imgui

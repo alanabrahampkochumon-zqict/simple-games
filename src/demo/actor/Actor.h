@@ -32,6 +32,7 @@ namespace tower_defense
         {
         public:
             explicit Actor(Game* owner) noexcept;
+            Actor(Actor& actor) = default;
             virtual ~Actor() noexcept;
 
 

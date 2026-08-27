@@ -74,7 +74,7 @@ namespace math
     // IMPLEMENTATIONS
     //+=+=+=+=+=+=+=+=+=
 
-    constexpr Vec3::Vec3(float x, float y, float z) noexcept: x{ x }, y{ y }, z{ z } {}
+    constexpr Vec3::Vec3(const float _x, const float _y, const float _z) noexcept: x{ _x }, y{ _y }, z{ _z } {}
 
     constexpr Vec3 Vec3::operator+(const Vec3& other) const noexcept
     { return Vec3{ x + other.x, y + other.y, z + other.z }; }

@@ -22,7 +22,7 @@ namespace math
 
         Vec2() = default;
 
-        [[nodiscard]] constexpr explicit Vec2(const float x, const float y) noexcept: x{ x }, y{ y } {};
+        [[nodiscard]] constexpr explicit Vec2(const float _x, const float _y) noexcept: x{ _x }, y{ _y } {}
 
         /// @brief Add two vector together and return a new vector containing the vector sum.
         [[nodiscard]] constexpr Vec2 operator+(const Vec2& other) const noexcept;
@@ -125,8 +125,8 @@ namespace math
         std::random_device rd;
         std::mt19937 generator(rd());
 
-        std::uniform_real_distribution xDistribution(from.x, to.x);
-        std::uniform_real_distribution yDistribution(from.y, to.y);
+        std::uniform_real_distribution<float> xDistribution(from.x, to.x);
+        std::uniform_real_distribution<float> yDistribution(from.y, to.y);
 
         return Vec2{ xDistribution(generator), yDistribution(generator) };
     }

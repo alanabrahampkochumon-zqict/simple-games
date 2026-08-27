@@ -87,15 +87,17 @@ namespace tower_defense
 
     void Game::removeActor(actor::Actor* actor) noexcept
     {
+        // Remove the actor by first searching pending actors
+        // and if it's not there remove it from the actors vector.
         auto actorToRemove = std::ranges::find(_pendingActors, actor);
         if (actorToRemove != std::ranges::end(_pendingActors))
         {
-            std::ranges::iter_swap(*actorToRemove, _pendingActors.back());
+            std::ranges::iter_swap(actorToRemove, _pendingActors.rbegin());
             _pendingActors.pop_back();
         }
         else if (actorToRemove = std::ranges::find(_actors, actor); actorToRemove != std::ranges::end(_actors))
         {
-            std::ranges::iter_swap(*actorToRemove, _actors.back());
+            std::ranges::iter_swap(actorToRemove, _actors.rbegin());
             _actors.pop_back();
         }
     }

@@ -58,6 +58,10 @@ namespace tower_defense
         SDL_Window* _window{ nullptr };
         SDL_Renderer* _renderer{ nullptr };
 
+
+        // Actors are the collection of all active actors.
+        // Pending actors is used to add actors to the game while
+        // it is in the middle of an update loop.
         std::vector<actor::Actor*> _actors{}, _pendingActors{};
 
 
