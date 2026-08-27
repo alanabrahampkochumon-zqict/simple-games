@@ -14,7 +14,7 @@
 #include <random>
 
 
-namespace psm
+namespace math
 {
     /// @brief Return whether a number is near zero.
     /// @note For integrals evaluation is based on whether is greater than zero.
@@ -53,4 +53,4 @@ namespace psm
             return dist(generator);
         }
     }
-} // namespace psm
+} // namespace math

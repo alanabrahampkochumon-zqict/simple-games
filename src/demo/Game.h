@@ -9,9 +9,12 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
+#include "actor/Actor.h"
+
 #include <SDL3/SDL.h>
 #include <array>
 #include <cstdint>
+#include <vector>
 
 namespace tower_defense
 {
@@ -28,6 +31,10 @@ namespace tower_defense
 
         /// Shutdown and cleanup the application
         void shutdown() noexcept;
+
+        void addActor(actor::Actor* actor) noexcept;
+
+        void removeActor(actor::Actor* actor) noexcept;
 
     private:
         /// Process the input from IO devices like keyboard
@@ -46,9 +53,14 @@ namespace tower_defense
         //+=+=+=+=+=+=+=+=+=+=
 
         bool _isRunning{ false };
+        bool _isUpdatingActors{ false };
+
+        size_t _lastFrameTick{};
 
         SDL_Window* _window{ nullptr };
         SDL_Renderer* _renderer{ nullptr };
+
+        std::vector<actor::Actor*> _actors{}, _pendingActors{};
 
 
 
@@ -61,6 +73,7 @@ namespace tower_defense
         static constexpr auto VERSION         = "1.0";
         static constexpr size_t WINDOW_WIDTH  = 1280;
         static constexpr size_t WINDOW_HEIGHT = 720;
+        static constexpr size_t SYNC_TIME     = 16;
         static constexpr std::array<uint8_t, 4> CLEAR_COLOR{ 255, 255, 255, 255 };
     };
 } // namespace tower_defense

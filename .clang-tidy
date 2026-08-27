@@ -22,6 +22,7 @@ CheckOptions:
     - { key: readability-identifier-naming.ParameterCase, value: camelBack }
     - { key: readability-identifier-naming.ConstantParameterCase, value: camelBack }
     - { key: readability-identifier-naming.MemberCase, value: camelBack }
+    - { key: readability-identifier-naming.MethodCase, value: camelBack }
     - { key: readability-identifier-naming.MemberPrefix, value: "" }
 
     - { key: readability-identifier-naming.PrivateMemberCase, value: camelBack }

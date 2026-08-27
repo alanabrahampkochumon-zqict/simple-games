@@ -1,19 +1,22 @@
 add_executable(DemoApp
         Game.cpp
-        Game.h)
+        Game.h
+        components/Component.h
+        actor/Actor.h
+        actor/Actor.cpp)
 target_compile_features(DemoApp PRIVATE cxx_std_20)
 
 
 target_sources(
         DemoApp
         PRIVATE
-            Main.cpp
+        Main.cpp
 
         PRIVATE
         FILE_SET HEADERS
         BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}
         FILES
-            Utils.h
+        Utils.h
 )
 
 target_include_directories(
@@ -27,4 +30,5 @@ target_link_libraries(
         SDL3::SDL3
         imgui
         SDL3_image::SDL3_image
+        SimpleMath
 )

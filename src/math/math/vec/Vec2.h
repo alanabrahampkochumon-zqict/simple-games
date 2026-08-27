@@ -13,7 +13,7 @@
 #include <random>
 
 // Peregrine Simple Math
-namespace psm
+namespace math
 {
 
     struct alignas(16) Vec2
@@ -142,4 +142,4 @@ namespace psm
 
 
 
-} // namespace psm
+} // namespace math
