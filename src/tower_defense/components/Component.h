@@ -28,7 +28,7 @@ namespace tower_defense
              * @param owner       The actor that owns this component.
              * @param updateOrder The order for update. Lower order indicates earlier updates. Default: 100
              */
-            explicit Component(actor::Actor* owner, const int updateOrder) noexcept
+            explicit Component(actor::Actor* owner, const int updateOrder = 100) noexcept
                 : _owner{ owner }, _updateOrder{ updateOrder }
             {}
 

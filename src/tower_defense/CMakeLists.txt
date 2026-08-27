@@ -7,6 +7,9 @@ add_executable(TowerDefense
 
         actor/Actor.h
         actor/Actor.cpp
+        components/AIComponent.cpp
+        components/AIComponent.h
+        components/AIState.h
 )
 target_compile_features(TowerDefense PRIVATE cxx_std_20)
 
