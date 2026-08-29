@@ -1,6 +1,6 @@
-[![Unit Tests](https://github.com/alanabrahampkochumon-zqict/CPP_Project_Template/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/alanabrahampkochumon-zqict/CPP_Project_Template/actions/workflows/unit-tests.yml)
+[![Cross-platform Build](https://github.com/alanabrahampkochumon-zqict/CPP_Project_Template/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/alanabrahampkochumon-zqict/CPP_Project_Template/actions/workflows/unit-tests.yml)
 
-# Modern C++ Project Template
+# Collection of Simple Games
 
 A high-performance boilerplate for C++ development featuring CMake integration, Google Test (GTest) for unit testing,
 and Google Benchmark for performance analysis.
