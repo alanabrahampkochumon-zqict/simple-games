@@ -155,7 +155,7 @@ namespace tower_defense::ds
                 if (!data.inClosedSet)
                 {
                     data.parentEdge = edge;
-                    if (!data.inClosedSet)
+                    if (!data.inOpenSet)
                     {
                         data.heuristic = computeHeuristic(edge->to, goal);
                         data.inOpenSet = true;
@@ -227,7 +227,8 @@ namespace tower_defense::ds
 
                 if (!data.inClosedSet)
                 {
-                    // If the node is not the in open set then it must be the current node
+                    // If the node is not the in open set then it is traversed for the first time
+                    // so we must compute the heuristic and add it to the open set.
                     if (!data.inOpenSet)
                     {
                         data.parentEdge = edge;
@@ -237,6 +238,8 @@ namespace tower_defense::ds
                         data.inOpenSet = true;
                         openSet.emplace_back(neighbor);
                     }
+                    // If the node is already in the open set we can update the parent and
+                    // the cost from start iff it is lower that the original cost
                     else
                     {
                         // Compute the actual cost if this becomes the parent
@@ -276,4 +279,6 @@ namespace tower_defense::ds
 
         return false;
     }
+
+    // TODO: Add Djikstra's Algorithm
 } // namespace tower_defense::ds
