@@ -28,11 +28,9 @@ namespace tower_defense
              * @param owner       The actor that owns this component.
              * @param updateOrder The order for update. Lower order indicates earlier updates. Default: 100
              */
-            explicit Component(actor::Actor* owner, const int updateOrder = 100) noexcept
-                : _owner{ owner }, _updateOrder{ updateOrder }
-            {}
+            explicit Component(actor::Actor* owner, const int updateOrder = 100) noexcept;
 
-            virtual ~Component() = default;
+            virtual ~Component() noexcept;
 
             virtual void update([[maybe_unused]] const float deltaTime) noexcept {}
 
@@ -42,7 +40,7 @@ namespace tower_defense
 
             [[nodiscard]] int getUpdateOrder() const { return _updateOrder; }
 
-        private:
+        protected:
             [[maybe_unused]] actor::Actor* _owner;
             int _updateOrder{};
         };

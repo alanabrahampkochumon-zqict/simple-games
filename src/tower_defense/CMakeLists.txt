@@ -11,6 +11,9 @@ add_executable(TowerDefense
         components/AIComponent.h
         components/AIState.h
         struct/Graph.h
+        components/MoveComponent.h
+        components/MoveComponent.cpp
+        components/Component.cpp
 )
 target_compile_features(TowerDefense PRIVATE cxx_std_20)
 

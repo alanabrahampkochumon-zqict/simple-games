@@ -276,8 +276,11 @@ namespace tower_defense::ds
             }
         }
         while (current != goal);
-
-        return false;
+        // NOTE: Since we're looking for any path, not the optimum path
+        // we can just terminate the loop when the current node is equal to the goal
+        // but in standard A*, the loop continues until the best path is found so we need
+        // to do some more housekeeping to ensure that the best path is retraceable.
+        return current == goal;
     }
 
     // TODO: Add Djikstra's Algorithm
