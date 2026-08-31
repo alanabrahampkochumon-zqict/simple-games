@@ -14,6 +14,8 @@ add_executable(TowerDefense
         components/MoveComponent.h
         components/MoveComponent.cpp
         components/Component.cpp
+        components/NavComponent.cpp
+        components/NavComponent.h
 )
 target_compile_features(TowerDefense PRIVATE cxx_std_20)
 

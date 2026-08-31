@@ -9,6 +9,7 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
+#include <cmath>
 #include <concepts>
 #include <limits>
 #include <random>
@@ -53,4 +54,13 @@ namespace math
             return dist(generator);
         }
     }
+
+
+    /// Return the arctangent of the y/x.
+    /// @tparam T The numeric type of values.
+    ///
+    /// @return The angle in radians.
+    template <typename T>
+    inline T atan2(const T y, const T x) noexcept
+    { return std::atan2(y, x); }
 } // namespace math
