@@ -5,6 +5,7 @@ add_library(SimpleMath INTERFACE
         math/vec/Vec4.h
         math/Rotations.h
         math/Utils.h
+        math/mat/Mat4.h
 )
 
 target_include_directories(SimpleMath INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

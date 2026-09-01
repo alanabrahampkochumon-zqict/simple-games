@@ -12,6 +12,7 @@
 #include "Vec2.h"
 #include "Vec3.h"
 
+#include <array>
 #include <cmath>
 
 
@@ -67,6 +68,9 @@ namespace math
 
         /// @brief Get the xy component of the vector as a 2D vector.
         [[nodiscard]] constexpr Vec2 xy() const noexcept;
+
+        /// @brief Get the xyz component of the vector as a 3D vector.
+        constexpr Vec3 xyz() const noexcept;
     };
 
 
@@ -121,7 +125,7 @@ namespace math
 
     constexpr Vec2 Vec4::xy() const noexcept { return Vec2{ x, y }; }
 
-    constexpr Vec3 Vec4::xy() const noexcept { return Vec3{ x, y, z }; }
+    constexpr Vec3 Vec4::xyz() const noexcept { return Vec3{ x, y, z }; }
 
     inline float Vec4::dist(const Vec4& other) const noexcept { return std::sqrt(distSq(other)); }
 
