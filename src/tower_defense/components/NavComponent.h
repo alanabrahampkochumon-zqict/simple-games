@@ -24,7 +24,7 @@ namespace tower_defense::comp
         {}
 
         /// Rotate the entity in the direction of another entity, given its position
-        void turnTo(math::Vec2 position) noexcept;
+        void turnTo(math::Vec2 position) const noexcept;
 
         void update(float deltaTime) noexcept override;
 

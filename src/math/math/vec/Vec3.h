@@ -24,7 +24,7 @@ namespace math
 
         Vec3() = default;
 
-        [[nodiscard]] constexpr explicit Vec3(float x, float y, float z) noexcept;
+        [[nodiscard]] constexpr explicit Vec3(float _x, float _y, float _z) noexcept;
 
         /// @brief Add two vector together and return a new vector containing the vector sum.
         [[nodiscard]] constexpr Vec3 operator+(const Vec3& other) const noexcept;

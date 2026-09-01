@@ -2,6 +2,7 @@ add_library(SimpleMath INTERFACE
         math/SimpleMath.h
         math/vec/Vec2.h
         math/vec/Vec3.h
+        math/vec/Vec4.h
         math/Rotations.h
         math/Utils.h
 )

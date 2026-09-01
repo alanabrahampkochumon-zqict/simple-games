@@ -15,11 +15,11 @@
 namespace tower_defense::comp
 {
 
-    void NavComponent::turnTo(const math::Vec2 position) noexcept
+    void NavComponent::turnTo(const math::Vec2 position) const noexcept
     {
         // Get the direction vector from the enemy to the player
         const auto direction = position - _owner->getPosition();
-
+        
         // Compute the angle between the player and the enemy
         const float angle = math::atan2(direction.x, direction.y);
 
