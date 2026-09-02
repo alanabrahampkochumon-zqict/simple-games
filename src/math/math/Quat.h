@@ -20,6 +20,10 @@ namespace math
         Vec3 v;
         float s; /// x, y, z make up the vector part and s the scalar part.
 
+        float& x = v.x;
+        float& y = v.y;
+        float& z = v.z;
+
         [[nodiscard]] explicit constexpr Quat(const Vec3& v, float s) noexcept;
 
         [[nodiscard]] explicit constexpr Quat(float x, float y, float z, float s) noexcept;
@@ -30,6 +34,11 @@ namespace math
         /// @param angle The rotation angle in radians. Use @ref math::toRad() to convert from degrees to radians.
         /// @param axis  The axis of rotation. Must be a unit vector.
         [[nodiscard]] static Quat makeRotation(float angle, const Vec3& axis) noexcept;
+
+
+        /// Get the Grassman product
+        /// @note Rotation is applied in a right to left order.
+        [[nodiscard]] constexpr Quat operator^(const Quat& other) const noexcept;
     };
 
 
@@ -41,6 +50,16 @@ namespace math
     constexpr Quat::Quat(const Vec3& v, const float s) noexcept: v{ v }, s{ s } {}
 
     constexpr Quat::Quat(const float x, const float y, const float z, const float s) noexcept: v{ x, y, z }, s{ s } {}
+
+
+    constexpr Quat Quat::operator^(const Quat& other) const noexcept
+    {
+        // TODO: Add docs
+        // Vector Part (p^q)v =
+        auto v = v * other.s + other.v * s + v.cross(other.v);
+        auto s = s * other.s - v.dot(other.v);
+        return Quat{ v, s };
+    }
 
     inline Quat Quat::makeRotation(const float angle, const Vec3& axis) noexcept
     {
