@@ -74,9 +74,11 @@ namespace math
         ///       use @ref transpose.
         [[nodiscard]] float* ptr() const noexcept;
 
+        /// Get a scale transformation factory along coordinate axis.
         [[nodiscard]] static constexpr Mat4 getScale(const float x, const float y, const float z) noexcept
         { return Mat4{ x, 0.0f, 0.0f, 0.0f, 0.0f, y, 0.0f, 0.0f, 0.0f, 0.0f, z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f }; }
 
+        /// Get a translation transform factory.
         [[nodiscard]] static constexpr Mat4 getTranslation(const float x, const float y, const float z) noexcept
         { return Mat4{ 1.0f, 0.0f, 0.0f, x, 0.0f, 1.0f, 0.0f, y, 0.0f, 0.0f, 1.0f, z, 0.0f, 0.0f, 0.0f, 1.0f }; }
 
