@@ -35,6 +35,9 @@ namespace math
         /// @brief Subtract a vector from this vector and return a new vector containing the vector difference.
         [[nodiscard]] constexpr Vec3 operator-(const Vec3& other) const noexcept;
 
+        /// @brief Negate the vector components
+        [[nodiscard]] constexpr Vec3 operator-() const noexcept;
+
         /// @brief Multiply this vector by a scalar and return a new scaled vector.
         [[nodiscard]] constexpr Vec3 operator*(float scalar) const noexcept;
 
@@ -91,6 +94,9 @@ namespace math
 
     constexpr Vec3 Vec3::operator-(const Vec3& other) const noexcept
     { return Vec3{ x - other.x, y - other.y, z - other.z }; }
+
+
+    constexpr Vec3 Vec3::operator-() const noexcept { return Vec3{ -x, -y, -z }; }
 
     constexpr Vec3 Vec3::operator*(const float scalar) const noexcept
     { return Vec3{ x * scalar, y * scalar, z * scalar }; }
