@@ -13,4 +13,5 @@
 #include "vec/Vec2.h"
 #include "vec/Vec3.h"
 #include "vec/Vec4.h"
+#include "Quat.h"
 #include "Utils.h"

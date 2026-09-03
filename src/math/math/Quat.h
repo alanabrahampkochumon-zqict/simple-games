@@ -41,6 +41,10 @@ namespace math
         /// @note Rotation is applied in a right to left order.
         [[nodiscard]] constexpr Quat operator*(const Quat& other) const noexcept;
 
+        /// @brief Transform a vector by this quaternion.
+        /// @note This assume that this quaternion is a rotational(unit) quaternion.
+        [[nodiscard]] constexpr Vec3 transform(const Vec3& vec) const noexcept;
+
         /// @brief Get the conjugate of this quaternion.
         ///
         /// @note For unit quaternion, this is the inverse.
@@ -66,6 +70,14 @@ namespace math
         auto v = v * other.s + other.v * s + v.cross(other.v);
         auto s = s * other.s - v.dot(other.v);
         return Quat{ v, s };
+    }
+
+    constexpr Vec3 Quat::transform(const Vec3& vec) const noexcept
+    {
+        // TODO: Recheck
+        // FGED: qvq* = (c2 - s2)v + 2s^2(v.a)a + 2cs(a x v)
+        const float b2 = v.x * v.x + v.y * v.y + v.z * v.z;
+        return v * (s * s - b2) + vec * 2 * vec.dot(v) + v.cross(vec) * s * 2;
     }
 
     constexpr Quat Quat::conjugate() const noexcept { return Quat{ -v, s }; }

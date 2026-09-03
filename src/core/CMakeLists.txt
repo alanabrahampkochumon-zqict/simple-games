@@ -1,5 +1,10 @@
 add_library(EngineCore STATIC
+        ecs/ECS.h
+        ecs/Entity.h
+        ecs/Signature.h
 
+        ecs/components/Component.h
+        ecs/components/Transform.h
 )
 target_compile_features(EngineCore PRIVATE cxx_std_20)
 
