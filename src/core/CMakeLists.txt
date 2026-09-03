@@ -1,6 +1,7 @@
 add_library(EngineCore STATIC
         ecs/ECS.h
         ecs/Entity.h
+        ecs/EntityManager.h
         ecs/Signature.h
 
         ecs/components/Component.h
