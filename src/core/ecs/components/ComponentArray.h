@@ -10,7 +10,7 @@
  */
 
 
-#include "Entity.h"
+#include "../Entity.h"
 
 #include <cassert>
 #include <unordered_map>
@@ -19,15 +19,15 @@ namespace ecs
 {
 
     // Review the use
-    class IComponent
+    class IComponentArray
     {
     public:
-        virtual ~IComponent()                       = default;
+        virtual ~IComponentArray()                       = default;
         virtual void entityDestroyed(Entity entity) = 0;
     };
 
     template <typename T>
-    class ComponentArray: public IComponent
+    class ComponentArray: public IComponentArray
     {
     public:
         constexpr void insert(const Entity entity, const T& component) noexcept
@@ -43,7 +43,7 @@ namespace ecs
             ++_numValidEntities;
         }
         // TODO: Rewrite with vector
-        void remove(const Entity entity) noexcept
+        constexpr void remove(const Entity entity) noexcept
         {
             assert(_entityToIndexMap.contains(entity) && "Cannot find the entity in the array");
 
@@ -63,13 +63,13 @@ namespace ecs
             --_numValidEntities;
         }
 
-        T& getComponent(const Entity entity) const noexcept
+        [[nodiscard]] constexpr T& getComponent(const Entity entity) const noexcept
         {
             assert(_entityToIndexMap.contains(entity) && "Entity not registered!");
             return _components[_entityToIndexMap.at(entity)];
         }
 
-        void entityDestroyed(const Entity entity) override
+        constexpr void entityDestroyed(const Entity entity) override
         {
             if (_entityToIndexMap.contains(entity))
             {
