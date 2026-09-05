@@ -1,8 +1,15 @@
-//
-// Created by Alan Abraham on 9/4/2026.
-//
+#pragma once
+/**
+ * @file SystemManager.h
+ * @author Alan Abraham P Kochumon
+ * @date Created on: September 04, 2026
+ *
+ * @brief Manages registered systems and their signatures.
+ *
+ * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
+ */
 
-#ifndef GAMECOLLECTION_SYSTEMMANAGER_H
-#define GAMECOLLECTION_SYSTEMMANAGER_H
-
-#endif //GAMECOLLECTION_SYSTEMMANAGER_H
+namespace ecs
+{
+    
+}

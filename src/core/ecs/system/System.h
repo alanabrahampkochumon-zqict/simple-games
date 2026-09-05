@@ -1,8 +1,21 @@
-//
-// Created by Alan Abraham on 9/4/2026.
-//
+#pragma once
+/**
+ * @file System.h
+ * @author Alan Abraham P Kochumon
+ * @date Created on: September 04, 2026
+ *
+ * @brief Parent class for creating a system of components.
+ *
+ * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
+ */
 
-#ifndef GAMECOLLECTION_SYSTEM_H
-#define GAMECOLLECTION_SYSTEM_H
+#include "../Entity.h"
 
-#endif //GAMECOLLECTION_SYSTEM_H
+namespace ecs
+{
+    class System
+    {
+    public:
+        std::set<Entity> _entities;
+    };
+} // namespace ecs
