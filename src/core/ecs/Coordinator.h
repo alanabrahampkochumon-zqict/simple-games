@@ -14,7 +14,7 @@
 #include "system/SystemManager.h"
 
 #include <memory>
-// #include "components/ComponentManager.h" TODO: Add back once merged
+#include "components/ComponentManager.h"
 
 namespace ecs
 {
@@ -22,7 +22,7 @@ namespace ecs
     {
     public:
         Coordinator()
-            : // _componentManager{std::make_unique<ComponentManager>()}, TODO: add back once merged
+            : _componentManager{std::make_unique<ComponentManager>()},
               _entityManager{ std::make_unique<EntityManager>() },
               _systemManager{ std::make_unique<system::SystemManager>() }
         {}
@@ -33,22 +33,22 @@ namespace ecs
         {
             _entityManager->destroy(entity);
             _systemManager->entityDestroyed(entity);
-            // _componentManager->entityDestroyed(entity); TODO: add back once merged
+            _componentManager->entityDestroyed(entity);
         }
 
         template <typename T>
         constexpr void registerComponent() noexcept
         {
-            // _componentManager->registerComponent<T>(); TODO: add back once merged
+            _componentManager->registerComponent<T>();
         }
 
         template <typename T>
         constexpr void addComponent(const Entity entity, [[maybe_unused]] const T& component) noexcept
         {
-            // _componentManager->addComponent<T>(entity, component); TODO: add back once merged
+            _componentManager->addComponent<T>(entity, component);
 
             const auto signature = _entityManager->getSignature(entity);
-            // signature.set(_componentManager->getComponentType<T>(), true); TODO: add back once merged
+            signature.set(_componentManager->getComponentType<T>(), true);
             _entityManager->setSignature(entity, signature);
             _systemManager->entitySignatureChanged(entity, signature);
         }
@@ -57,27 +57,27 @@ namespace ecs
         template <typename T>
         constexpr void removeComponent(const Entity entity) noexcept
         {
-            // _componentManager.removeComponent(entity); TODO: add back once merged
+            _componentManager.removeComponent(entity);
 
             const auto signature = _entityManager->getSignature(entity);
-            // signature.set(_componentManager->getComponentType<T>(), true); TODO: add back once merged
+            signature.set(_componentManager->getComponentType<T>(), true);
             _entityManager->setSignature(entity, signature);
             _systemManager->entitySignatureChanged(entity, signature);
         }
 
 
-        // template <typename T> TODO: add back once merged
-        // constexpr T& getComponent(const Entity entity) noexcept
-        // {
-        //     return _componentManager->getComponent(entity);
-        // }
+        template <typename T>
+        constexpr T& getComponent(const Entity entity) noexcept
+        {
+            return _componentManager->getComponent(entity);
+        }
 
 
-        // template <typename T> TODO: add back once merged
-        // constexpr comp::ComponentType getComponentType() noexcept
-        // {
-        //         return _componentManager->getComponentType<T>();
-        // }
+        template <typename T>
+        constexpr comp::ComponentType getComponentType() noexcept
+        {
+                return _componentManager->getComponentType<T>();
+        }
 
 
         template <typename T>
@@ -90,7 +90,7 @@ namespace ecs
         { _systemManager->setSignature<T>(signature); }
 
     private:
-        // std::unique_ptr<ComponentManager> _componentManager; TODO: add back once merged
+        std::unique_ptr<ComponentManager> _componentManager;
         std::unique_ptr<EntityManager> _entityManager;
         std::unique_ptr<system::SystemManager> _systemManager;
     };
