@@ -123,6 +123,7 @@ namespace tower_defense::ds
         bool inClosedSet = false; /// Node has already been traversed
     };
 
+
     /// Structure for associating each node to its scratch struct
     using GBFSMap = std::unordered_map<const WeightedGraphNode*, GBFSScratch>;
 

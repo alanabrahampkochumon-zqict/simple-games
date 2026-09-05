@@ -6,10 +6,9 @@ add_library(EngineCore STATIC
 
         ecs/components/Component.h
         ecs/components/Transform.h
-        ecs/components/ComponentArray.h
-        ecs/components/ComponentManager.h
-        ecs/system/System.h
         ecs/system/SystemManager.h
+        ecs/system/System.h
+        ecs/Coordinator.h
 )
 target_compile_features(EngineCore PRIVATE cxx_std_20)
 
