@@ -145,5 +145,7 @@ namespace math
     inline Vec3 Vec3::normalize() const noexcept { return *this / mag(); }
 
 
-
+    static constexpr auto UnitX = Vec3{ 1.0f, 0.0f, 0.0f };
+    static constexpr auto UnitY = Vec3{ 0.0f, 1.0f, 0.0f };
+    static constexpr auto UnitZ = Vec3{ 0.0f, 0.0f, 1.0f };
 } // namespace math

@@ -9,6 +9,7 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
+
 #include <math/SimpleMath.h>
 
 namespace ecs::comp
@@ -18,5 +19,11 @@ namespace ecs::comp
         math::Vec3 position;
         math::Quat rotation;
         math::Vec3 scale;
+
+
+        math::Vec3 getForward() const
+        {
+            return rotation.transform(math::Vec3::UnitX);
+        }
     };
 }
