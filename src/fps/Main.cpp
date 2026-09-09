@@ -10,4 +10,12 @@
 
 #include "Game.h"
 
-int main() { return 0; }
+int main()
+{
+    fps::Game game;
+    if (game.initialize())
+    {
+        game.run();
+    }
+    game.shutdown();
+}
