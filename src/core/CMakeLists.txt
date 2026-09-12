@@ -14,7 +14,8 @@ add_library(EngineCore STATIC
         ecs/system/RenderingSystem.h
         ecs/system/InputSystem.h
         Dummy.cpp
-        ecs2/Entity.h # TODO: REMOVE as linker needs atleast one compilation unit
+        ecs2/Entity.h
+        ecs2/Registry.h # TODO: REMOVE as linker needs atleast one compilation unit
 )
 target_compile_features(EngineCore PRIVATE cxx_std_20)
 

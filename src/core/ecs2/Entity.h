@@ -12,7 +12,7 @@
 
 #include <cstdint>
 
-namespace ecs
+namespace u_ecs
 {
     using Entity = uint32_t;
 
