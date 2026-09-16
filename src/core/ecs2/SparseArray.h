@@ -13,6 +13,8 @@
 
 #include <cstdint>
 #include <vector>
+#include <cassert>
+
 
 namespace u_ecs
 {
@@ -22,23 +24,33 @@ namespace u_ecs
     public:
         static constexpr size_t PAGE_SIZE = 1024;
 
-        constexpr SparseArray(): _storage(PAGE_SIZE) { _size = 0; }
+        constexpr SparseArray(): _storage(PAGE_SIZE) { _usedSlots = 0; }
 
-        void add(Entity entity, SpareArray_t index)
+        void add(const Entity entity, const SpareArray_t index)
         {
-            // Resize if the space is more page is required.
-            if (entity & (PAGE_SIZE - 1) == 0)// TODO: Redo masking logic.
+            assert(_storage[entity] == 0 && "Component already exists for entity");
+            // Resize the sparse array if we have an entity
+            // that cannot be stored in it.
+            if (entity > _storage.size())
             {
-                _storage.resize(_storage.size() + PAGE_SIZE);
+                // Round up entity to the next multiple of page size
+                // Hacker Delight [3-1]
+                const auto newSize = entity + (-entity & PAGE_SIZE - 1);
+                _storage.resize(newSize);
             }
-            ++_size;
+            ++_usedSlots;
             _storage[entity] = index;
-            return _size - 1;
+        }
+
+
+        void removeComp(const Entity entity)
+        {
+            _storage[entity] = 0;
         }
 
 
     private:
         std::vector<SpareArray_t> _storage; /// Internal storage.
-        static size_t _size;                /// Used size of storage.
+        static size_t _usedSlots;           /// Number of slots used in the sparse array.
     };
 } // namespace u_ecs
