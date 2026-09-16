@@ -34,6 +34,9 @@ namespace u_ecs
             return storage.size() - 1;
         }
 
+        /// Get the component at the given index.
+        [[nodiscard]] constexpr T get(size_t index) const noexcept { return storage[index]; }
+
 
         /// Remove a component at @p index.
         /// This is constant time operator(O(1)).

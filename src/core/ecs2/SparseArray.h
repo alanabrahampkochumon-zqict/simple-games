@@ -11,14 +11,16 @@
 
 #include "Entity.h"
 
+#include <cassert>
 #include <cstdint>
 #include <vector>
-#include <cassert>
 
 
 namespace u_ecs
 {
     using SpareArray_t = uint32_t;
+
+    template <typename Component>
     class SparseArray
     {
     public:
@@ -26,8 +28,9 @@ namespace u_ecs
 
         constexpr SparseArray(): _storage(PAGE_SIZE) { _usedSlots = 0; }
 
-        void add(const Entity entity, const SpareArray_t index)
+        constexpr void add(const Entity entity, const SpareArray_t index) noexcept
         {
+            // TODO: Update to another sentinel value.
             assert(_storage[entity] == 0 && "Component already exists for entity");
             // Resize the sparse array if we have an entity
             // that cannot be stored in it.
@@ -43,8 +46,16 @@ namespace u_ecs
         }
 
 
-        void removeComp(const Entity entity)
+        [[nodiscard]] constexpr SpareArray_t get(const Entity entity) const noexcept
         {
+            // TODO: Add assert after adding sentinel value
+            assert(entity < _storage.size() && "Entity not registered!");
+            return _storage[entity];
+        }
+
+        constexpr void removeComp(const Entity entity) noexcept
+        {
+            // TODO: Update to sentinel value.
             _storage[entity] = 0;
         }
 
