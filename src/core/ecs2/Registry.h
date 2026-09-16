@@ -21,19 +21,37 @@ namespace u_ecs
     class Registry
     {
     public:
-        template <typename ComponentType>
-        ComponentType get(Entity entity)
+        template <typename Component>
+        [[nodiscard]] constexpr Component get(Entity entity) const noexcept
         {
-            const auto denseIndex = _componentSparseArray<ComponentType>.get(entity);
-            return _componentDenseArray<ComponentType>.get(denseIndex);
+            const auto denseIndex = _componentSparseArray<Component>.get(entity);
+            return _componentDenseArray<Component>.get(denseIndex);
         }
 
 
+        template <typename Component>
+        constexpr void add(Entity entity, Component component) const noexcept
+        {
+            const auto denseIndex = _componentDenseArray<Component>.add(component);
+            _componentSparseArray<Component>.add(entity, denseIndex);
+        }
+
+
+        template <typename Component>
+        constexpr void remove(Entity entity, Component component) const noexcept
+        {
+            const auto denseIndex = _componentSparseArray<Component>.removeComp(entity);
+            _componentDenseArray<Component>.removeAt(denseIndex);
+        }
+
+        // template<typename Component>
+        // constexpr std::vector<Component>&
+
     private:
-        template <typename ComponentType>
-        SparseArray<ComponentType> _componentSparseArray{};
-        template <typename ComponentType>
-        DenseArray<ComponentType> _componentDenseArray{};
+        template <typename Component>
+        SparseArray<Component> _componentSparseArray{};
+        template <typename Component>
+        DenseArray<Component> _componentDenseArray{};
 
         // Sparse Set set with paging
     };

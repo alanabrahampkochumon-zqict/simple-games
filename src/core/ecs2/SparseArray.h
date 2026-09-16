@@ -19,19 +19,19 @@
 namespace u_ecs
 {
     using SpareArray_t = uint32_t;
-
     template <typename Component>
     class SparseArray
     {
     public:
         static constexpr size_t PAGE_SIZE = 1024;
+        static constexpr SpareArray_t SENTINEL = 0; // TODO: Update from zero
 
         constexpr SparseArray(): _storage(PAGE_SIZE) { _usedSlots = 0; }
 
         constexpr void add(const Entity entity, const SpareArray_t index) noexcept
         {
             // TODO: Update to another sentinel value.
-            assert(_storage[entity] == 0 && "Component already exists for entity");
+            assert(_storage[entity] == SENTINEL && "Component already exists for entity");
             // Resize the sparse array if we have an entity
             // that cannot be stored in it.
             if (entity > _storage.size())
@@ -53,10 +53,12 @@ namespace u_ecs
             return _storage[entity];
         }
 
-        constexpr void removeComp(const Entity entity) noexcept
+        constexpr SpareArray_t removeComp(const Entity entity) noexcept
         {
             // TODO: Update to sentinel value.
-            _storage[entity] = 0;
+            const auto index = _storage[entity];
+            _storage[entity] = SENTINEL;
+            return index;
         }
 
 
