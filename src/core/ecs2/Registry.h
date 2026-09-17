@@ -9,6 +9,7 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
+#include "ComponentArray.h"
 #include "DenseArray.h"
 #include "Entity.h"
 #include "SparseArray.h"
@@ -23,36 +24,34 @@ namespace u_ecs
     public:
         template <typename Component>
         [[nodiscard]] constexpr Component get(Entity entity) const noexcept
-        {
-            const auto denseIndex = _componentSparseArray<Component>.get(entity);
-            return _componentDenseArray<Component>.get(denseIndex);
-        }
+        { return _components<Component>.get(entity); }
 
 
         template <typename Component>
         constexpr void add(Entity entity, Component component) const noexcept
-        {
-            const auto denseIndex = _componentDenseArray<Component>.add(component);
-            _componentSparseArray<Component>.add(entity, denseIndex);
-        }
+        { _components<Component>.add(entity, component); }
 
 
         template <typename Component>
         constexpr void remove(Entity entity, Component component) const noexcept
-        {
-            const auto denseIndex = _componentSparseArray<Component>.removeComp(entity);
-            _componentDenseArray<Component>.removeAt(denseIndex);
-        }
+        { _components<Component>.remove(entity, component); }
 
-        // template<typename Component>
-        // constexpr std::vector<Component>&
+
+        // template <typename Component>
+        // constexpr void registerComponent() const noexcept
+        // {}
 
     private:
         template <typename Component>
-        SparseArray<Component> _componentSparseArray{};
-        template <typename Component>
-        DenseArray<Component> _componentDenseArray{};
+        ComponentArray<Component> _components;
+
+        // Helpers
+        static size_t _registeredCompCount;
+
+        static constexpr size_t MAX_COMPONENTS = 500;
 
         // Sparse Set set with paging
     };
+
 } // namespace u_ecs
+  // registry.registerComponent<Type>();

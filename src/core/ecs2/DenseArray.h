@@ -1,6 +1,6 @@
 #pragma once
 /**
- * @file ComponentPage.h
+ * @file DenseArray.h
  * @author Alan Abraham P Kochumon
  * @date Created on: September 15, 2026
  *
@@ -26,7 +26,7 @@ namespace u_ecs
         {
             // Resize the container if the we dont have any storage for components.
             // TODO: Look into whether there is way to eliminate.
-            if (storage.size() & RESIZE_FACTOR - 1 == 0)
+            if ((storage.size() & (RESIZE_FACTOR - 1)) == 0)
             {
                 storage.reserve(storage.size() + RESIZE_FACTOR);
             }
@@ -44,7 +44,8 @@ namespace u_ecs
         {
             /// Swap this component with the last one and remove the last one.
             storage[index] = storage.back();
-            storage.pop_back(); // We dont need to delete the item and can just mark it as deleted.
+            storage.pop_back();
+            // TODO: IMPL if required a counter so that we dont need to delete the item and can just mark it as deleted.
         }
 
     private:
