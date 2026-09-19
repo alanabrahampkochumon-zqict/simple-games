@@ -60,7 +60,7 @@ namespace ecs
         }
 
         /// Get the signature for a given entity.
-        [[nodiscard]] constexpr Signature getSignature(const Entity entity) const noexcept
+        [[nodiscard]] constexpr Signature getSignature(const Entity entity) const   noexcept
         {
             assert(entity < MAX_ENTITIES && "Entity out of range");
             return _signatures[entity];

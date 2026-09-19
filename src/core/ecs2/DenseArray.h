@@ -37,6 +37,8 @@ namespace u_ecs
         /// Get the component at the given index.
         [[nodiscard]] constexpr T get(size_t index) const noexcept { return storage[index]; }
 
+        [[nodiscard]] constexpr const std::vector<T>& getAllElements() const noexcept { return storage; }
+
 
         /// Remove a component at @p index.
         /// This is constant time operator(O(1)).

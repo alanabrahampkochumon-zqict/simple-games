@@ -28,6 +28,10 @@ namespace u_ecs
 
 
         template <typename Component>
+        [[nodiscard]] constexpr Component getAll() const noexcept
+        { return _components<Component>._componentDenseArray.storage; }
+
+        template <typename Component>
         constexpr void add(Entity entity, Component component) const noexcept
         { _components<Component>.add(entity, component); }
 
@@ -35,11 +39,6 @@ namespace u_ecs
         template <typename Component>
         constexpr void remove(Entity entity, Component component) const noexcept
         { _components<Component>.remove(entity, component); }
-
-
-        // template <typename Component>
-        // constexpr void registerComponent() const noexcept
-        // {}
 
     private:
         template <typename Component>
@@ -49,6 +48,8 @@ namespace u_ecs
         static size_t _registeredCompCount;
 
         static constexpr size_t MAX_COMPONENTS = 500;
+
+        static Entity _id;
 
         // Sparse Set set with paging
     };

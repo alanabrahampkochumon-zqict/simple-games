@@ -38,6 +38,11 @@ namespace u_ecs
             _componentDenseArray.removeAt(denseIndex);
         }
 
+        [[nodiscard]] constexpr DenseArray<Component> getAll()
+        {
+            return _componentDenseArray.getAllElements();
+        }
+
     private:
         SparseArray<Component> _componentSparseArray{};
         DenseArray<Component> _componentDenseArray{};
