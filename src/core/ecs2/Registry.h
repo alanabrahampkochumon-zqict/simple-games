@@ -11,8 +11,8 @@
 
 #include "ComponentArray.h"
 #include "DenseArray.h"
-#include "Entity.h"
 #include "SparseArray.h"
+#include "entity/Entity.h"
 
 #include <cstdint>
 #include <vector>

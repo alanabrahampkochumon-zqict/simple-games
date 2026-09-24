@@ -16,6 +16,8 @@ namespace u_ecs
 {
     using Entity = uint32_t;
 
+    static constexpr Entity NULL_ENTITY = ~0UL;
+
     // The upper 10 bits are reserved for tracking entity generation.
     inline constexpr uint32_t ENTITY_GENERATION_BITS = 10;
     inline constexpr uint32_t ENTITY_ID_BITS         = sizeof(Entity) - ENTITY_GENERATION_BITS;
