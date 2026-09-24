@@ -10,7 +10,7 @@
  */
 
 #include "DenseArray.h"
-#include "SparseArray.h"
+#include "ds/SparseArray.h"
 
 namespace u_ecs
 {

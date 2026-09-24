@@ -9,7 +9,7 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
-#include "entity/Entity.h"
+#include "../entity/Entity.h"
 
 #include <cassert>
 #include <cstdint>
