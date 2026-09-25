@@ -9,12 +9,14 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
-#include "ComponentArray.h"
 #include "DenseArray.h"
+#include "component/ComponentArray.h"
 #include "ds/SparseArray.h"
 #include "entity/Entity.h"
+#include "entity/EntityManager.h"
 
 #include <cstdint>
+#include <memory>
 #include <vector>
 
 namespace u_ecs
@@ -22,6 +24,25 @@ namespace u_ecs
     class Registry
     {
     public:
+        [[nodiscard]] constexpr Entity createEntity() noexcept { return _entityManager.create(); }
+
+        constexpr void destroyEntity(const Entity entity) noexcept
+        {
+            _entityManager.destroy(entity);
+
+            /// Loop through the component array and remove them.
+            for (const auto& comp : _components)
+            {
+                comp->remove(entity);
+            }
+        }
+
+        // template<typename Component>
+        // constexpr void add(const Entity entity) noexcept
+        // {
+        //     if (_entityManager.getSignature(entity) & )
+        // }
+
         template <typename Component>
         [[nodiscard]] constexpr Component get(Entity entity) const noexcept
         { return _components<Component>.get(entity); }
@@ -41,15 +62,9 @@ namespace u_ecs
         { _components<Component>.remove(entity, component); }
 
     private:
-        template <typename Component>
-        ComponentArray<Component> _components;
+        std::vector<std::unique_ptr<BaseComponentArray>> _components;
 
-        // Helpers
-        static size_t _registeredCompCount;
-
-        static constexpr size_t MAX_COMPONENTS = 500;
-
-        static Entity _id;
+        EntityManager _entityManager{};
 
         // Sparse Set set with paging
     };

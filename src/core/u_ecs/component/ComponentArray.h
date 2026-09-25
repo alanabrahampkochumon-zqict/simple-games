@@ -9,13 +9,14 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
-#include "DenseArray.h"
-#include "ds/SparseArray.h"
+#include "../ds/DenseArray.h"
+#include "../ds/SparseArray.h"
+#include "BaseComponentArray.h"
 
 namespace u_ecs
 {
     template <typename Component>
-    class ComponentArray
+    class ComponentArray: BaseComponentArray
     {
     public:
         [[nodiscard]] constexpr Component get(Entity entity) const noexcept
@@ -32,16 +33,15 @@ namespace u_ecs
         }
 
 
-        constexpr void remove(Entity entity, Component component) const noexcept
+        constexpr void remove(Entity entity) noexcept override
         {
             const auto denseIndex = _componentSparseArray.removeComp(entity);
             _componentDenseArray.removeAt(denseIndex);
         }
 
-        [[nodiscard]] constexpr DenseArray<Component> getAll()
-        {
-            return _componentDenseArray.getAllElements();
-        }
+        constexpr void contains(Entity entity) override { return _componentSparseArray.contains(entity); }
+
+        [[nodiscard]] constexpr DenseArray<Component> getAll() { return _componentDenseArray.getAllElements(); }
 
     private:
         SparseArray<Component> _componentSparseArray{};

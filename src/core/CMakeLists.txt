@@ -1,12 +1,17 @@
 add_library(EngineCore STATIC
         Dummy.cpp # TODO: REMOVE as linker needs atleast one compilation unit
-        ecs2/entity/Entity.h
-        ecs2/Registry.h
-        ecs2/DenseArray.h
-        ecs2/SparseArray.h
-        ecs2/ComponentArray.h
-        ecs2/entity/EntityManager.h
-        ecs2/entity/Entity.h
+        u_ecs/entity/Entity.h
+        u_ecs/entity/EntityManager.h
+        u_ecs/entity/Signature.h
+
+        u_ecs/component/ComponentManager.h
+        u_ecs/component/ComponentArray.h
+
+        u_ecs/ds/SparseArray.h
+        u_ecs/ds/DenseArray.h
+
+        u_ecs/Registry.h
+        u_ecs/Config.h
 )
 target_compile_features(EngineCore PRIVATE cxx_std_20)
 

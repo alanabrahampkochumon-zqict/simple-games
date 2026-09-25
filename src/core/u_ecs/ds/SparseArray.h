@@ -59,6 +59,9 @@ namespace u_ecs
             return index;
         }
 
+        constexpr SpareArray_t contains(const Entity entity) const noexcept
+        { return _storage.size() > entity && _storage[entity] != SENTINEL; }
+
 
     private:
         std::vector<SpareArray_t> _storage; /// Internal storage.
