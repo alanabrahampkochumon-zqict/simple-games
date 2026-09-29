@@ -46,4 +46,6 @@ namespace u_ecs
         return ((getGeneration(entity) + 1) << ENTITY_ID_BITS) | stripGeneration(entity);
     }
 
+    [[maybe_unused]] constexpr size_t getMaxEntities() { return 1 << (sizeof(Entity) * 8 - ENTITY_GENERATION_BITS); }
+
 } // namespace u_ecs

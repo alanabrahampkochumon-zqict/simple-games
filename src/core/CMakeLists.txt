@@ -4,8 +4,9 @@ add_library(EngineCore STATIC
         u_ecs/entity/EntityManager.h
         u_ecs/entity/Signature.h
 
-        u_ecs/component/ComponentManager.h
+        u_ecs/component/BaseComponentArray.h
         u_ecs/component/ComponentArray.h
+        u_ecs/component/ComponentManager.h
 
         u_ecs/ds/SparseArray.h
         u_ecs/ds/DenseArray.h
