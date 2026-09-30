@@ -11,18 +11,23 @@
 
 
 #include <cstdint>
+#include <cassert>
 
 namespace u_ecs
 {
     using Entity = uint32_t;
-
-    static constexpr Entity NULL_ENTITY = ~0UL;
 
     // The upper 10 bits are reserved for tracking entity generation.
     inline constexpr uint32_t ENTITY_GENERATION_BITS = 10;
     inline constexpr uint32_t ENTITY_ID_BITS         = sizeof(Entity) - ENTITY_GENERATION_BITS;
     inline constexpr uint32_t ENTITY_GENERATION_MASK = 0xFFC00000;
     inline constexpr uint32_t ENTITY_ID_MASK         = ~ENTITY_GENERATION_MASK;
+
+
+    static constexpr Entity NULL_ENTITY = ~0UL;
+    static constexpr size_t MAX_ENTITIES  = 1 << (sizeof(Entity) * 8 - ENTITY_GENERATION_BITS);
+    static constexpr size_t MAX_GENERATION =
+        (1 << ENTITY_GENERATION_BITS) - 1; // All ones are reserved for null entity.
 
     /// Get the generation of the @p entity.
     inline uint32_t getGeneration(const Entity entity) { return entity >> ENTITY_ID_BITS; }
@@ -42,10 +47,9 @@ namespace u_ecs
         // 1000 0000 (Generation in correct place)
         // 0100 0001 & ~(1100 0000) = 0100 0001 & 0011 1111 = 0000 0001
         // 1000 0000 | 0000 0001 (Ent | Gen) = 1000 0001 (Updated Entity)
-        // Entity only
+        assert(entity + 1 < MAX_GENERATION && "Maximum Generations Reached");
         return ((getGeneration(entity) + 1) << ENTITY_ID_BITS) | stripGeneration(entity);
     }
 
-    [[maybe_unused]] constexpr size_t getMaxEntities() { return 1 << (sizeof(Entity) * 8 - ENTITY_GENERATION_BITS); }
 
 } // namespace u_ecs

@@ -24,7 +24,7 @@ namespace u_ecs
         /// Add a @p component and return the added index.
         constexpr size_t add(T component)
         {
-            // Resize the container if the we dont have any storage for components.
+            // Resize the container if the we don't have any storage for components.
             // TODO: Look into whether there is way to eliminate.
             if ((storage.size() & (RESIZE_FACTOR - 1)) == 0)
             {

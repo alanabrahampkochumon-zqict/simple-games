@@ -11,6 +11,7 @@
 
 #include "DenseArray.h"
 #include "component/ComponentArray.h"
+#include "component/ComponentManager.h"
 #include "ds/SparseArray.h"
 #include "entity/Entity.h"
 #include "entity/EntityManager.h"
@@ -59,12 +60,11 @@ namespace u_ecs
 
         template <typename Component>
         constexpr void remove(Entity entity, Component component) const noexcept
-        { _components<Component>.remove(entity, component); }
+        { _componentManager.e<Component>.remove(entity, component); }
 
     private:
-        std::vector<std::unique_ptr<BaseComponentArray>> _components;
-
         EntityManager _entityManager{};
+        ComponentManager _componentManager{};
 
         // Sparse Set set with paging
     };

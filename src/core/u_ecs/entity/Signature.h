@@ -9,8 +9,6 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
-#include "../Config.h"
-
 #include <bitset>
 
 namespace u_ecs

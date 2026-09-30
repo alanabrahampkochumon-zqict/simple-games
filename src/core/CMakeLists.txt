@@ -6,6 +6,7 @@ add_library(EngineCore STATIC
 
         u_ecs/component/BaseComponentArray.h
         u_ecs/component/ComponentArray.h
+        u_ecs/component/ComponentType.h
         u_ecs/component/ComponentManager.h
 
         u_ecs/ds/SparseArray.h

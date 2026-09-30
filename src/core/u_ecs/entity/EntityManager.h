@@ -46,7 +46,7 @@ namespace u_ecs
 
         /// Set the signature for the @p entity.
         /// @note This will override any previously set signature on the entity.
-        constexpr void setSignature(const Entity entity, const Signature signature) noexcept
+        constexpr void setSignature(const Entity entity, const Signature& signature) noexcept
         {
             assert(entity < MAX_ENTITIES && "Entity out of range");
             _signatures[entity] = signature;
