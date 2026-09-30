@@ -30,7 +30,7 @@ namespace u_ecs
 
         constexpr void add(const Entity entity, const SpareArray_t index) noexcept
         {
-            assert(_storage[entity] == SENTINEL && "Component already exists for entity");
+            assert(_storage[stripGeneration(entity)] == SENTINEL && "Component already exists for entity");
             // Resize the sparse array if we have an entity
             // that cannot be stored in it.
             if (entity > _storage.size())
@@ -41,7 +41,7 @@ namespace u_ecs
                 _storage.resize(newSize);
             }
             ++_usedSlots;
-            _storage[entity] = index;
+            _storage[stripGeneration(entity)] = index;
         }
 
 
@@ -49,18 +49,18 @@ namespace u_ecs
         {
             // TODO: Add assert after adding sentinel value
             assert(entity < _storage.size() && "Entity not registered!");
-            return _storage[entity];
+            return _storage[stripGeneration(entity)];
         }
 
         constexpr SpareArray_t removeComp(const Entity entity) noexcept
         {
-            const auto index = _storage[entity];
-            _storage[entity] = SENTINEL;
+            const auto index = _storage[stripGeneration(entity)];
+            _storage[stripGeneration(entity)] = SENTINEL;
             return index;
         }
 
         constexpr SpareArray_t contains(const Entity entity) const noexcept
-        { return _storage.size() > entity && _storage[entity] != SENTINEL; }
+        { return _storage.size() > entity && _storage[stripGeneration(entity)] != SENTINEL; }
 
 
     private:

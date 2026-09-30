@@ -9,16 +9,11 @@
  * @copyright Copyright (c) 2026 Alan Abraham P Kochumon
  */
 
-#include "DenseArray.h"
-#include "component/ComponentArray.h"
 #include "component/ComponentManager.h"
-#include "ds/SparseArray.h"
 #include "entity/Entity.h"
 #include "entity/EntityManager.h"
 
-#include <cstdint>
 #include <memory>
-#include <vector>
 
 namespace u_ecs
 {
@@ -30,37 +25,29 @@ namespace u_ecs
         constexpr void destroyEntity(const Entity entity) noexcept
         {
             _entityManager.destroy(entity);
-
-            /// Loop through the component array and remove them.
-            for (const auto& comp : _components)
-            {
-                comp->remove(entity);
-            }
+            _componentManager.entityDestroyed(entity);
         }
 
-        // template<typename Component>
-        // constexpr void add(const Entity entity) noexcept
-        // {
-        //     if (_entityManager.getSignature(entity) & )
-        // }
 
         template <typename Component>
-        [[nodiscard]] constexpr Component get(Entity entity) const noexcept
-        { return _components<Component>.get(entity); }
+        [[nodiscard]] constexpr Component get(const Entity entity) const noexcept
+        { return _componentManager.get<Component>(entity); }
 
 
         template <typename Component>
-        [[nodiscard]] constexpr Component getAll() const noexcept
-        { return _components<Component>._componentDenseArray.storage; }
+        [[nodiscard]] constexpr std::shared_ptr<ComponentArray<Component>> getAll() const noexcept
+        { return _componentManager.getComponentArray<Component>(); }
 
         template <typename Component>
-        constexpr void add(Entity entity, Component component) const noexcept
-        { _components<Component>.add(entity, component); }
+        constexpr void add(Entity entity, Component component) noexcept
+        {
+            _componentManager.add(entity, component);
+        }
 
 
         template <typename Component>
-        constexpr void remove(Entity entity, Component component) const noexcept
-        { _componentManager.e<Component>.remove(entity, component); }
+        constexpr void remove(Entity entity, Component component) noexcept
+        { _componentManager. }
 
     private:
         EntityManager _entityManager{};

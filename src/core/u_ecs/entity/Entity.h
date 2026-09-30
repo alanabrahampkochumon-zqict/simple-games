@@ -10,8 +10,8 @@
  */
 
 
-#include <cstdint>
 #include <cassert>
+#include <cstdint>
 
 namespace u_ecs
 {
@@ -19,13 +19,14 @@ namespace u_ecs
 
     // The upper 10 bits are reserved for tracking entity generation.
     inline constexpr uint32_t ENTITY_GENERATION_BITS = 10;
-    inline constexpr uint32_t ENTITY_ID_BITS         = sizeof(Entity) - ENTITY_GENERATION_BITS;
+    inline constexpr uint32_t ENTITY_ID_BITS         = (sizeof(Entity) * 8) - ENTITY_GENERATION_BITS;
     inline constexpr uint32_t ENTITY_GENERATION_MASK = 0xFFC00000;
     inline constexpr uint32_t ENTITY_ID_MASK         = ~ENTITY_GENERATION_MASK;
 
 
     static constexpr Entity NULL_ENTITY = ~0UL;
-    static constexpr size_t MAX_ENTITIES  = 1 << (sizeof(Entity) * 8 - ENTITY_GENERATION_BITS);
+    // static constexpr size_t MAX_ENTITIES  = 1 << (sizeof(Entity) * 8 - ENTITY_GENERATION_BITS);
+    static constexpr size_t MAX_ENTITIES = 100000; // Update as required
     static constexpr size_t MAX_GENERATION =
         (1 << ENTITY_GENERATION_BITS) - 1; // All ones are reserved for null entity.
 
@@ -33,7 +34,7 @@ namespace u_ecs
     inline uint32_t getGeneration(const Entity entity) { return entity >> ENTITY_ID_BITS; }
 
     /// Get the entity id without generation information.
-    inline uint32_t stripGeneration(const Entity entity) { return entity & ~ENTITY_GENERATION_BITS; }
+    inline uint32_t stripGeneration(const Entity entity) { return entity & ENTITY_ID_MASK; }
 
     /// Increment the entity generation.
     inline Entity incEntityGeneration(const Entity entity)

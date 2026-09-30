@@ -46,7 +46,7 @@ namespace ecs
         {
             assert(entity < MAX_ENTITIES && "Entity out of range");
 
-            _signatures[entity].reset();
+            _signatures[stripGeneration(entity)].reset();
             _availableEntities.push(entity);
             --_totalEntities;
         }
@@ -56,14 +56,14 @@ namespace ecs
         constexpr void setSignature(const Entity entity, const Signature signature) noexcept
         {
             assert(entity < MAX_ENTITIES && "Entity out of range");
-            _signatures[entity] = signature;
+            _signatures[stripGeneration(entity)] = signature;
         }
 
         /// Get the signature for a given entity.
         [[nodiscard]] constexpr Signature getSignature(const Entity entity) const   noexcept
         {
             assert(entity < MAX_ENTITIES && "Entity out of range");
-            return _signatures[entity];
+            return _signatures[stripGeneration(entity)];
         }
 
     private:
