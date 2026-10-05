@@ -14,6 +14,6 @@
 
 namespace u_ecs
 {
-    using ComponentType = uint16_t;
+    using ComponentType = uint8_t;
     inline constexpr size_t MAX_COMPONENTS = 64;
 } // namespace u_ecs

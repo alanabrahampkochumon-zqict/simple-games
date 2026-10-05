@@ -11,7 +11,7 @@ target_include_directories(
 
 target_link_libraries(
         FirstPersonShooter PRIVATE
-        StrictWarnings
+        ${PROJECT_NAME}-StrictWarnings
         SDL3::SDL3
         imgui
         SDL3_image::SDL3_image
