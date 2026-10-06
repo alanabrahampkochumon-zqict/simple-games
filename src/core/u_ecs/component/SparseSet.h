@@ -29,6 +29,7 @@ namespace u_ecs
         SparseSet() noexcept
         {
             _sparseArray.reserve(SPARSE_ARRAY_PAGE_SIZE);
+            _denseIndices.reserve(DENSE_ARRAY_PAGE_SIZE);
             _denseArray.reserve(DENSE_ARRAY_PAGE_SIZE);
         }
 
@@ -37,16 +38,29 @@ namespace u_ecs
         {
             const auto denseIndex = _denseArray.size();
             _denseArray.emplace_back(component);
-            // if (entity >= (_sparseArray.size() >> LOG_SPARSE_ARRAY_PAGE_SIZE))
-            // TODO: Add resizing
-            _sparseArray[entity] = denseIndex;
+
+            if (entity >= _sparseArray.size())
+            {
+                _sparseArray.resize(entity + 1);
+            }
+            if (denseIndex > _denseIndices)
+            {
+                _denseArray.resize(denseIndex + 1);
+            }
+
+            _sparseArray[entity]      = denseIndex;
+            _denseIndices[denseIndex] = entity;
         }
 
         constexpr void remove(const Entity entity)
         {
             // Get the dense index.
-            const size_t denseIndex = _sparseArray[entity];
+            const auto denseIndexToRemove = _sparseArray[entity];
+            const auto finalDenseIndex = _sparseArray.size() - 1;
+
             // Swap the component in the dense array with the last component
+            const auto finalEntity = _denseIndices[finalDenseIndex];
+            // TODO: Perform swap and pop
 
         }
 
@@ -104,7 +118,10 @@ namespace u_ecs
 
 
     private:
-        std::vector<std::unique_ptr<std::array<Entity, SPARSE_ARRAY_PAGE_SIZE>>> _sparseArray{};
+        // TODO: Add paging
+        // std::vector<std::unique_ptr<std::array<Entity, SPARSE_ARRAY_PAGE_SIZE>>> _sparseArray{};
+        std::vector<uint32_t> _sparseArray{};
+        std::vector<Entity> _denseIndices{}; // Reverse indexing map
         std::vector<T> _denseArray{};
     };
 } // namespace u_ecs
