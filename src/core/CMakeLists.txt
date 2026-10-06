@@ -1,18 +1,8 @@
+include(u_ecs/MircoECS.cmake)
+
 add_library(EngineCore STATIC
         Dummy.cpp # TODO: REMOVE as linker needs atleast one compilation unit
-        u_ecs/entity/Entity.h
-        u_ecs/entity/EntityManager.h
-        u_ecs/entity/Signature.h
-
-        u_ecs/component/BaseComponentArray.h
-        u_ecs/component/ComponentArray.h
-        u_ecs/component/ComponentType.h
-        u_ecs/component/ComponentManager.h
-
-        u_ecs/ds/SparseArray.h
-        u_ecs/ds/DenseArray.h
-
-        u_ecs/Registry.h
+        ${U_ECS_FILES}
 )
 target_compile_features(EngineCore PRIVATE cxx_std_20)
 
