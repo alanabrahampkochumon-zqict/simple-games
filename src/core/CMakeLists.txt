@@ -13,7 +13,6 @@ add_library(EngineCore STATIC
         u_ecs/ds/DenseArray.h
 
         u_ecs/Registry.h
-        u_ecs/Config.h
 )
 target_compile_features(EngineCore PRIVATE cxx_std_20)
 
