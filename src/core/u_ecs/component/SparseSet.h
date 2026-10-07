@@ -29,39 +29,34 @@ namespace u_ecs
         SparseSet() noexcept
         {
             _sparseArray.reserve(SPARSE_ARRAY_PAGE_SIZE);
-            _denseIndices.reserve(DENSE_ARRAY_PAGE_SIZE);
-            _denseArray.reserve(DENSE_ARRAY_PAGE_SIZE);
+            _denseEntities.reserve(DENSE_ARRAY_PAGE_SIZE);
+            _denseComponents.reserve(DENSE_ARRAY_PAGE_SIZE);
         }
 
         /// Add a @p T @p component to an @p entity.
         constexpr void add(const Entity entity, const T& component)
         {
-            const auto denseIndex = _denseArray.size();
-            _denseArray.emplace_back(component);
+            assert(_denseComponents.size() == _denseEntities.size(), "Dense arrays out of sync");
+            const auto denseIndex = _denseComponents.size();
+            _denseComponents.emplace_back(component);
+            _denseEntities.emplace_back(entity);
 
             if (entity >= _sparseArray.size())
             {
                 _sparseArray.resize(entity + 1);
             }
-            if (denseIndex > _denseIndices)
-            {
-                _denseArray.resize(denseIndex + 1);
-            }
-
             _sparseArray[entity]      = denseIndex;
-            _denseIndices[denseIndex] = entity;
         }
 
         constexpr void remove(const Entity entity)
         {
             // Get the dense index.
             const auto denseIndexToRemove = _sparseArray[entity];
-            const auto finalDenseIndex = _sparseArray.size() - 1;
+            const auto finalDenseIndex    = _sparseArray.size() - 1;
 
             // Swap the component in the dense array with the last component
-            const auto finalEntity = _denseIndices[finalDenseIndex];
+            const auto finalEntity = _denseEntities[finalDenseIndex];
             // TODO: Perform swap and pop
-
         }
 
 
@@ -121,7 +116,7 @@ namespace u_ecs
         // TODO: Add paging
         // std::vector<std::unique_ptr<std::array<Entity, SPARSE_ARRAY_PAGE_SIZE>>> _sparseArray{};
         std::vector<uint32_t> _sparseArray{};
-        std::vector<Entity> _denseIndices{}; // Reverse indexing map
-        std::vector<T> _denseArray{};
+        std::vector<Entity> _denseEntities{}; // Reverse indexing map
+        std::vector<T> _denseComponents{};
     };
 } // namespace u_ecs
